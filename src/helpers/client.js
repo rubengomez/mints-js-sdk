@@ -44,7 +44,6 @@ class client {
         }
 
         const fullUrl = `${this.host}${baseUrl || this.baseUrl}${url}?${uri}`;
-        console.log(fullUrl);
 
         let response;
         let headers = this.headers(compatibilityOptions);

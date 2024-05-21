@@ -1,24 +1,24 @@
 # Mints JS SDK
 
-Este SDK te permite interactuar con las instancias de CXF
+This SDK allows you to interact with CXF instances
 
-## Instalación
+## Installing
 
-Puedes instalar este SDK a través de npm:
+You can install this SDK via npm:
 ```bash
 npm install mints-js-sdk
 ```
 
-## Uso básico (Client-side)
+## Basic usage (Client-side)
 
-Para usar el SDK en el lado del cliente, puedes importar el módulo `mints-js-sdk` y tomar los siguientes objetos:
+To use the SDK on the client side, you can import the 'mints-js-sdk' module and grab the following objects:
 
 ```javascript
 import { mintsUser, mintsPublic, mintsContact } from 'mints-js-sdk';
 ```
 
-A continuacion ya puedes hacer uso de los métodos disponibles en cada uno de los objetos.
-Ejemplo:
+You can then make use of the methods available on each of the objects.
+Example:
 
 ```javascript
 mintsPublic.getStoryVersions(null, false)
@@ -28,28 +28,28 @@ mintsPublic.getStoryVersions(null, false)
 );
 ```
 
-### Importante: Para poder hacer uso de los métodos del SDK, es necesario haber inicializado el proxy del lado del servidor.
+### Important: In order to use the SDK methods, you must have initialized the server-side proxy.
 
-## Uso básico (Server-side)
+## Basic usage (Server-side)
 
-### Requerimientos
+### Requirements
 - Node.js
 - Express.js
 - Babel
 
-### Instalación de dependencias
+### Installing Dependencies
 ```bash
 npm install express
 npm install @babel/core @babel/node @babel/preset-env
 ```
 
-### Inicialización
-Asegurate de tener las siguientes variables de entorno en tu servidor:
+### Initialization
+Make sure you have the following environment variables on your server:
 - CXF_HOST
 - CXF_API_KEY
 
 ### Middleware
-Es necesario crear un middleware para poder sincronizar las cookies de sesión con el SDK. Puedes hacerlo de la siguiente manera:
+You need to create middleware to be able to synchronize session cookies with the SDK. Here's how:
 
 ```javascript
 import { cookies } from 'mints-js-sdk';
@@ -63,7 +63,7 @@ const syncCookiesMiddleware = (req, res, next) => {
 export default syncCookiesMiddleware;
 ```
 
-Ahora en tu archivo de rutas, puedes importar el middleware y usarlo en las rutas que necesites:
+Now in your route file, you can import the middleware and use it on the routes you need:
 
 ```javascript
 import express from 'express';
@@ -72,13 +72,13 @@ import syncCookiesMiddleware from './middleware/syncCookiesMiddleware';
 const router = express.Router();
 
 router.get('/some-route', syncCookiesMiddleware, (req, res) => {
-  // Tu lógica aquí
+  // Logic here
 });
 
 export default router;
 ```
 
-O bien puedes usarlo en tu archivo principal para ejecutarlo en todas las rutas:
+Or you can use it in your main file to run it on all paths:
 
 ```javascript
 import express from 'express';
@@ -88,7 +88,7 @@ const app = express();
 
 app.use(syncCookiesMiddleware);
 
-// Tus rutas aquí
+// Routes here
 
 app.listen(3000, () => {
   console.log('Server running on port 3000');
@@ -96,36 +96,30 @@ app.listen(3000, () => {
 ```
 
 ### Uso
-Para hacer uso del SDK en el lado del servidor, puedes importar los siguientes objetos:
-- mintsUser: Para interactuar con los métodos de usuario
-- mintsPublic: Para interactuar con los métodos públicos
-- mintsContact: Para interactuar con los métodos de contacto
-- cookies: Para sincronizar las cookies de sesión (solo disponible en el lado del servidor)
-- userAuthHelper: Para acceder a los métodos de autenticación como login y logout (solo disponible en el lado del servidor)
-- contactAuthHelper: Para acceder a los métodos de autenticación de contacto (solo disponible en el lado del servidor)
+To make use of the server-side SDK, you can import the following objects:
+- mintsUser: To interact with user methods
+- mintsPublic: To interact with public methods
+- mintsContact: To interact with contact methods
+- cookies: To synchronize session cookies (only available on the server side)
+- userAuthHelper: To access authentication methods such as login and logout (only available on the server side)
+- contactAuthHelper: To access contact authentication methods (only available on the server side)
 
-Ejemplo para iniciar sesión con un usuario y contacto en el servidor:
+Example for logging in with a user and contact on the server:
 
 ```javascript
 import { userAuthHelper, contactAuthHelper, cookies } from 'mints-js-sdk';
 
-// Logica para mantener las cookies sincronizadas a traves del middleware
+// Here add your logic for keeping cookies synchronized across middleware
 
-// Endpoint para iniciar sesión en el usuario
+// Endpoint to log in the user
 app.get('/set-user', (req, res) => {
-    let response = userAuthHelper.mintsUserLogin('usuario@example.com', 'password', res);
+    let response = userAuthHelper.mintsUserLogin('user@example.com', 'password', res);
     response.then(resp => res.json(resp)); // { response: true }
 });
 
-// Endpoint para iniciar sesión en el contacto
+// Endpoint to log in the contact
 app.get('/set-contact', (req, res) => {
-    let response = contactAuthHelper.mintsContactLogin('contacto@examploe.com', 'password', res);
+    let response = contactAuthHelper.mintsContactLogin('contact@example.com', 'password', res);
     response.then(resp => res.json(resp)); // { response: true }
 });
 ```
-
-## Métodos disponibles
-Por el momento la documentacion de los métodos disponibles se encuentra en desarrollo.
-Puedes revisar el siguiente link para ver los métodos disponibles en el SDK: [Documentación](https://www.rubydoc.info/gems/mints/0.0.33/)
-Los metodos mostrados en el link estan en Ruby, pero los metodos en el SDK son los mismos.
-No olvides usar camelCase en lugar de snake_case para los nombres de los métodos.
