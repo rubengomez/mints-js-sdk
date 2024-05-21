@@ -14,8 +14,6 @@ let mContactAuthHelper = null;
 
 if (typeof window === 'undefined') {
     try {
-        const dotenv = await import('dotenv');
-        dotenv.config();
         const HOST = process.env.CXF_HOST;
         const API_KEY = process.env.CXF_API_KEY;
         if (!HOST) throw new Error('Mints SDK: CXF_HOST is not defined in your .env file');
