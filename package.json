@@ -1,6 +1,6 @@
 {
   "name": "mints-js-sdk",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "description": "Mints SDK for JavaScript",
   "main": "./src/index.js",
   "scripts": {
@@ -13,9 +13,15 @@
     "mints sdk",
     "mints js sdk"
   ],
-  "author": "Mints",
-  "license": "ISC",
-  "dependencies": {
-    "dotenv": "^16.4.5"
+  "author": "Ruben Gomez <rubengomezgeek@gmail.com>",
+  "contributors": [
+    {
+      "name": "Luis Hernandez",
+      "email": "luis_hesiquio@hotmail.com"
+    }
+  ],
+  "license": "MIT",
+  "optionalDependencies": {
+    "dotenv": "^10.0.0"
   }
 }

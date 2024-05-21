@@ -3,7 +3,6 @@ import MintsContact from './mintsContact.js';
 import MintsPublic from './mintsPublic.js';
 import UserAuthHelper from "./helpers/UserAuthHelper.js";
 import ContactAuthHelper from "./helpers/ContactAuthHelper.js";
-import dotenv from 'dotenv';
 import Cookies from "./helpers/Cookies.js";
 
 let mUser = null;
@@ -15,6 +14,7 @@ let mContactAuthHelper = null;
 
 if (typeof window === 'undefined') {
     try {
+        const dotenv = await import('dotenv');
         dotenv.config();
         const HOST = process.env.CXF_HOST;
         const API_KEY = process.env.CXF_API_KEY;
