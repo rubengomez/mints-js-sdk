@@ -1,9 +1,11 @@
 import Cookies from "./Cookies.js";
+import MintsHelper from "./mintsHelper.js";
 class client {
     host;
     baseUrl;
     apiKey;
     sessionKey;
+    MintsHelper = new MintsHelper();
 
     constructor(host, baseUrl, apiKey = null, sessionKey = null) {
         this.host = host || '';
@@ -25,6 +27,7 @@ class client {
     }
 
     async raw(action, url, options = null, data = null, baseUrl = null, compatibilityOptions = {}) {
+        data = this.MintsHelper.dataTransform(data)
         let uri = '';
 
         if (options && typeof options === 'object') {
@@ -50,7 +53,7 @@ class client {
 
         try {
             if (action === 'get') {
-                response = await fetch(fullUrl, { method: 'GET', headers });
+                response = await fetch(fullUrl, { method: 'GET', headers});
             } else if (['create', 'post'].includes(action)) {
                 compatibilityOptions.no_content_type ?
                     response = await fetch(fullUrl, { method: 'POST', headers, body: this.convertToFormData(data) }) :
@@ -65,7 +68,14 @@ class client {
             if (!response.ok) {
                 throw new Error(`Request failed with status ${response.status} in the following request (${action} ${fullUrl})`);
             }
-            return await response.json();
+
+            response = await response.json();
+
+            try {
+                return JSON.parse(response);
+            } catch (error) {
+                return response;
+            }
         } catch (error) {
             return error;
         }
