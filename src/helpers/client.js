@@ -26,8 +26,8 @@ class client {
         return headers;
     }
 
-    async raw(action, url, options = null, data = null, baseUrl = null, compatibilityOptions = {}) {
-        data = this.MintsHelper.dataTransform(data)
+    async raw(action, url, options = null, data = null, baseUrl = null, compatibilityOptions = {}, dataTransform = true) {
+        if (dataTransform) data = this.MintsHelper.dataTransform(data)
         let uri = '';
 
         if (options && typeof options === 'object') {

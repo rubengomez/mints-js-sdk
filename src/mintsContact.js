@@ -21,7 +21,7 @@ class MintsContact {
 
     login(email, password) {
         let data = {email, password};
-        return this.client.raw('post', '/contacts/login', null, this.dataTransform(data), '/api/v1');
+        return this.client.raw('post', '/contacts/login', null, this.dataTransform(data), '/api/v1', {}, false);
     }
 
     recoverPassword(data) {

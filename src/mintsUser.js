@@ -24,7 +24,7 @@ class MintsUser {
 
     login(email, password) {
         let data = {email, password};
-        return this.client.raw('post', '/users/login', null, data, '/api/v1', { no_content_type: true });
+        return this.client.raw('post', '/users/login', null, data, '/api/v1', { no_content_type: true }, false);
         // if (response['api_token']) this.client.sessionToken = response['api_token'];
     }
 
